@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign In</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body class="container">
+    <h1 class="text-center mt-5">Sign In</h1>
+    <form id="sign-in-form" class="mx-auto" style="width: 300px;">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" class="form-control">
+        </div>
+        <input type="submit" value="Sign In" class="btn btn-primary">
+    </form>
+    <div class="text-center mt-3">
+        <a href="/users/sign-up" class="btn btn-link">Don't have an account? Sign Up</a>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#sign-in-form').submit(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: '/users/sign-in',
+                    type: 'post',
+                    data: JSON.stringify({
+                        email: $('#sign-in-form input[name="email"]').val(),
+                        password: $('#sign-in-form input[name="password"]').val()
+                    }),
+                    contentType: 'application/json',
+                    success: function() {
+                        window.location.href = '/';
+                    },
+                    error: function() {
+                        alert('Sign in failed');
+                    },
+
+                });
+            });
+        });
+    </script>
+</body>
+</html>
